@@ -182,8 +182,8 @@ class HgjPlugin {
 
     function columns_content ( $column, $post_id) {
       if ($column == 'ref_gospel') {
-        echo get_field('reference_gospel', $post_id );
-
+        //echo get_field('reference_gospel', $post_id );
+        echo get_post_meta( $post_id, 'reference_gospel', true);
       }
 
     }
@@ -276,14 +276,7 @@ function daily_generate_gospel () {
 
 
 /* Insert the post
-            $postid = wp_insert_post( $postarr, true );
-
-            if ( is_wp_error( $postid ) ) {
-                wp_die( __( "There was problem with your submission. Try again.", 'jmo-forms' ) );
-            }
-            
-
- }
+ 
  
 
 
