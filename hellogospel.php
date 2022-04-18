@@ -262,15 +262,6 @@ function daily_generate_gospel () {
 
               //if this gospel has not yet being added -> add it.
         if ($existGospel->found_posts == 0) {
-  
-   wp_insert_post(array(
-    'post_type' => 'gospel',
-    'post_status' => 'publish',
-    'post_title' => $title,
-    'post_content' => $content,
-    'meta_input' => array(
-        'reference_gospel' => $ref
-    )
 
 ));  
 
