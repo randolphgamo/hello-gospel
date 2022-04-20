@@ -9,11 +9,6 @@ Version: 0.1
 Author URI: https://caj.cm/
 */
 
-//  wp_enqueue_style('filterAdminCss', plugin_dir_url(__FILE__). 'styles.css');
-
-//load admin files
-//require_once( __DIR__ . '/admin.php' );
-
 
 
 
@@ -26,6 +21,10 @@ class HgjPlugin {
         add_action( 'init', array( $this, 'create_post_type' ) );
 
         register_activation_hook(__FILE__, array($this, 'hgj_activate_plugin'));
+
+        //add deactivation hook to remove cron
+        register_deactivation_hook(__FILE__, array($this, 'hgj_deactivate_plugin' ));
+
 
         add_action ('daily_gospel_hook', array($this, 'daily_generate_gospel'));
 
@@ -171,7 +170,7 @@ class HgjPlugin {
         $columns = array (
             'cb' => $columns['cb'],
             'date' => 'Date',
-            'title' => 'Title',
+          //  'title' => 'Title',
             'ref_gospel' => 'Reference'
         );
         
@@ -182,9 +181,12 @@ class HgjPlugin {
 
     function columns_content ( $column, $post_id) {
       if ($column == 'ref_gospel') {
-        //echo get_field('reference_gospel', $post_id );
-        echo get_post_meta( $post_id, 'reference_gospel', true);
+        
+       
+        echo '<a href="'.get_edit_post_link($post_id).'">'. get_post_meta( $post_id, 'reference_gospel', true) .'</a>';
       }
+
+      
 
     }
 
@@ -212,6 +214,13 @@ function hgj_activate_plugin () {
     
 
 }
+//this function would be called upon deactivation of plugin
+function hgj_deactivate_plugin() {
+  wp_clear_scheduled_hook('daily_gospel_hook');
+
+}
+
+
 function dateToFrench($date, $format) 
 {
     $english_days = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
@@ -236,37 +245,7 @@ $my_plugin = new HgjPlugin() ;
 
 
 /*
-add_action ('daily_gospel_hook', 'daily_generate_gospel');
 
-function daily_generate_gospel () {
-
-      $dateEvangile = date('Y-m-d');
-    
-    $response = wp_remote_get( 'https://api.aelf.org/v1/messes/'.$dateEvangile.'/afrique' );
- 
-       
-
-      //to check if this gospel has not yet being added
-        $existGospel = new WP_Query(array(
-
-            'post_type' => 'gospel',
-            'post_status'   => 'publish',
-            'meta_query' => array(
-              array( 
-                'key' => 'reference_gospel',
-                'compare' => '=',
-                'value' => $ref
-              )
-            )
-              ));
-
-              //if this gospel has not yet being added -> add it.
-        if ($existGospel->found_posts == 0) {
-
-));  
-
-
-/* Insert the post
  
  
 
