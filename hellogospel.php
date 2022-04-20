@@ -196,9 +196,9 @@ function hgj_activate_plugin () {
 
     //cron job
     //https://developer.wordpress.org/reference/functions/wp_schedule_event/
-    wp_schedule_event(time(), 'daily', 'daily_gospel_hook');
+    //wp_schedule_event(time(), 'daily', 'daily_gospel_hook');
 
-    //wp_schedule_event(strtotime('00:50 a.m.'),'daily', 'daily_gospel_hook');
+    wp_schedule_event(strtotime('00:50 a.m.'),'daily', 'daily_gospel_hook');
 
     //wp_schedule_event(strtotime('12:00 a.m.'),'daily', 'daily_gospel_hook');
 
@@ -240,24 +240,6 @@ function dateToFrench($date, $format)
 $my_plugin = new HgjPlugin() ;
 
 
-
-
-
-
-/*
-
- 
- 
-
-
-
-
-
-}
-}
-
-
-*/
 
 
 
