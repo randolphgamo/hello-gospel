@@ -198,7 +198,9 @@ function hgj_activate_plugin () {
     //https://developer.wordpress.org/reference/functions/wp_schedule_event/
     //wp_schedule_event(time(), 'daily', 'daily_gospel_hook');
 
-    wp_schedule_event(strtotime('00:50 a.m.'),'daily', 'daily_gospel_hook');
+    //wp_schedule_event(strtotime('00:50 a.m.'),'daily', 'daily_gospel_hook');
+
+    wp_schedule_event(strtotime('midnight'),'daily', 'daily_gospel_hook');
 
     //wp_schedule_event(strtotime('12:00 a.m.'),'daily', 'daily_gospel_hook');
 
