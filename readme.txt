@@ -10,7 +10,7 @@ Requires at least: 5.0
 Tested up to:      5.9.3
 Requires PHP:      7.0
 Stable tag:        1.0
-Version:           01052022
+Version:           0.1
 
 This plugin helps you display the Gospel of the day. 
 
@@ -34,7 +34,7 @@ Use the shortcode [gospel] to display the Gospel in a page of your choice.
 
 == Changelog ==
 
-= 20220501 =
+= 0.1 =
 Release date 01/05/2022
 * pull gospel from aelf.org and display on a site
 
