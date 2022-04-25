@@ -54,7 +54,7 @@ class HgjPlugin {
 
       $post = get_page_by_path($path, OBJECT, 'gospel');
       $content = apply_filters('the_content', $post->post_content);
-      echo $content;
+      echo wp_kses($content, 'post');
 
     } //end function shortcodeGospel
 
@@ -84,7 +84,7 @@ class HgjPlugin {
          * refpassage, then content
          */
         
-        $content = '<strong>' . $this->dateToFrench($dateEvangile, "l j F Y") . '</strong><br/><h3>' .$title . '</h3><br/>';
+        $content = '<strong>' . $this->hgj_date_french($dateEvangile, "l j F Y") . '</strong><br/><h3>' .$title . '</h3><br/>';
          
 
        $content .= $body["messes"][0]["lectures"][2]["contenu"];
@@ -113,11 +113,10 @@ class HgjPlugin {
        wp_insert_post(array(
         'post_type' => 'gospel',
         'post_status' => 'publish',
-       /* 'post_title' => $title, */
         'post_content' => $content,
         'post_name' => $dateEvangileFrench,
         'post_category' => array($cat_ID),
-       // 'tax_input' => array( 'category' => 1 ),
+      
 
         'meta_input' => array(
             'reference_gospel' => $ref
@@ -129,7 +128,9 @@ class HgjPlugin {
     $proofurl = esc_url(site_url('/evangile-du-jour'));
     $headers = array('Content-Type: text/html; charset=UTF-8');
 
-    wp_mail ( 'info@cajplugin.local', 
+    //get_option('admin_email')
+
+    wp_mail ( get_option('admin_email'), 
               'New Gospel for '.$dateEvangileFrench, 
               'This gospel was successfully created. Check <a href="'.$proofurl.'">here</a>',
               $headers);
@@ -183,7 +184,7 @@ class HgjPlugin {
       if ($column == 'ref_gospel') {
         
        
-        echo '<a href="'.get_edit_post_link($post_id).'">'. get_post_meta( $post_id, 'reference_gospel', true) .'</a>';
+        echo '<a href="'.esc_url(get_edit_post_link($post_id)).'">'. esc_html(get_post_meta( $post_id, 'reference_gospel', true)) .'</a>';
       }
 
       
@@ -200,7 +201,7 @@ function hgj_activate_plugin () {
 
     //wp_schedule_event(strtotime('midnight'),'daily', 'daily_gospel_hook');
 
-    wp_schedule_event(strtotime('00:50 a.m.'),'daily', 'daily_gospel_hook');
+    wp_schedule_event(strtotime('01:00 a.m.'),'daily', 'daily_gospel_hook');
 
     //wp_schedule_event(strtotime('12:00 a.m.'),'daily', 'daily_gospel_hook');
 
@@ -223,7 +224,7 @@ function hgj_deactivate_plugin() {
 }
 
 
-function dateToFrench($date, $format) 
+function hgj_date_french($date, $format) 
 {
     $english_days = array('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
     $french_days = array('Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche');

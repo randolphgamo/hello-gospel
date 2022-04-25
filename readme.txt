@@ -1,24 +1,29 @@
 === Hello Gospel ===
 
 Contributors:      randolphgamo
-Plugin Name:       Hello Gospel
-Plugin URI:        (web page for plugin)
 Tags:              jesus, gospel, evangile
 Author URI:        https://caj.cm
-Author:            Jesus
 Requires at least: 5.0 
 Tested up to:      5.9.3
 Requires PHP:      7.0
-Stable tag:        1.0
+Stable tag:        0.1
 Version:           0.1
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin helps you display the Gospel of the day. 
+This plugin helps to display the Gospel of the day on your website. 
 
 
 == Description ==
 This plugin helps you display the Gospel of the day. 
 It automatically pulls the gospel of the day from aelf.org
 You can see a demo at [here](https://caj.cm/evangile-du-jour)
+
+The plugin relies on [AELF](https://aelf.org) to automatically fetch the gospel of the day
+Their API is accesible at [here](https://api.aelf.org). 
+For more details they can be contacted via this [form](https://aelf.org/contact)
+
+
 
 
 == Installation ==
@@ -35,8 +40,8 @@ Use the shortcode [gospel] to display the Gospel in a page of your choice.
 == Changelog ==
 
 = 0.1 =
-Release date 01/05/2022
-* pull gospel from aelf.org and display on a site
+Release date April 2022
+* Initial version
 
 == Frequently Asked Questions ==
 =In which language is the Gospel offered?=
