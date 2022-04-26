@@ -2,8 +2,8 @@
 
 /*
 Plugin Name: Hello Gospel
-Plugin URI: http://wordpress.org/plugins/hello-dolly/
-Description: Populate your wordpress with the Good News
+Plugin URI: http://wordpress.org/plugins/hello-gospel/
+Description: Populate your website with the Good News
 Author: Jesus Christ
 Version: 0.1
 Author URI: https://caj.cm/
