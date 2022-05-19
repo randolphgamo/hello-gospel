@@ -42,9 +42,90 @@ class HgjPlugin {
            
         add_action( 'manage_gospel_posts_custom_column', array( $this, 'columns_content' ), 10, 2 );
 
+        //create menu for the plugin
+        add_action('admin_menu',  array($this, 'ourMenu'));
 
+        //to register our settings for the Gospel Notification
+        add_action('admin_init', array($this, 'ourSettings'));
         
     }
+
+
+    //function to register our settings
+    function ourSettings() {
+      
+
+    //create a setting
+    register_setting('notificationFields',
+                     'gospel-option'  //option name in database
+                    );
+
+
+    //create a section for our settings
+    add_settings_section  ('notification-text-section',
+                    null, //label for the section
+                    null,
+                    'gospel-options' //page slug
+);
+
+    //add the settings to the section
+    add_settings_field('notification-option',
+                        'Get email notification everyday?', //label
+                        array ($this, 'optionFieldHTML'), //fxn to output the html for our label
+                        'gospel-options', //page slug to show this field
+                        'notification-text-section' //section where the field will be added
+                      );
+
+    }
+
+    //this function is used by add_settings_field to create the html for our field
+    function optionFieldHTML() { ?>
+        
+        <select name = "gospel-option">
+          <option value="0" <?php /*Use php to load with corrected selected value */ selected(get_option('gospel-option'), '0')  ?>>NO</option>
+          <option value="1" <?php /*Use php to load with corrected selected value */ selected(get_option('gospel-option'), '1')  ?>>YES</option>
+        </select>
+
+        <p class="description">Leave value to NO to not receive the gospel publication notification everyday</p>
+    <?php }
+
+    
+      //menu for plugin
+      function  ourMenu() {
+       
+       // to create submenu for options
+        add_submenu_page (
+                      'edit.php?post_type=gospel',
+                      'Gospel Options',
+                      'Options',
+                      'manage_options',
+                      'gospel-options',
+                      array($this, 'optionsSubPage')
+        );
+      
+      }
+
+      function optionsSubPage () { ?>
+        <div class="wrap">
+          <h1>Gospel Notification Options</h1>
+          <form action="options.php" method="POST">
+            <?php
+
+              //wordpress function to display messages when user Saves changes
+              settings_errors();
+
+              //to output the settings registered using register_setting
+              settings_fields('notificationFields');
+
+              //output sections
+              do_settings_sections('gospel-options');
+
+              //this is a WordPress function to have submit button
+              submit_button();
+            ?>
+          </form>
+        </div>
+      <?php } 
 
     function shortcodeGospel() {
 
@@ -128,26 +209,34 @@ class HgjPlugin {
     $proofurl = esc_url(site_url('/evangile-du-jour'));
     $headers = array('Content-Type: text/html; charset=UTF-8');
 
-    //get_option('admin_email')
+    
+    /*
 
-    wp_mail ( get_option('admin_email'), 
+    to check whether the user wants to receive notification about the gospel being published
+    the 2nd option in get_option is the fallback value in case get_option for that
+    value in db is empty */
+    
+    if (get_option('gospel-option','0') == '1') {
+     wp_mail ( get_option('admin_email'), 
               'New Gospel for '.$dateEvangileFrench, 
               'This gospel was successfully created. Check <a href="'.$proofurl.'">here</a>',
               $headers);
-    
-    // check <a href="$dateEvangileFrench">here</a>
+    }
+
+
+        
 
 
     } //end if gospel does not exists
 } //end call to api
-    }
+    } //end daily generate gospel api.
 
     function create_post_type () {
         //to create gospel post type
     register_post_type('gospel', array(
         'public' => true, //make CPT visible to admins and backend users.
         'supports' => array('title', 'editor', 'thumbnail', 'custom-fields' ), //thumbnail will allow feature images for this CPT
-  
+      //  'show_in_menu' => false, //to prevent CPT from showing and thus use Custom menu instead
           'labels' => array(
             'name' => 'Gospel',
             'add_new_item' => 'Add New Gospel' ,
