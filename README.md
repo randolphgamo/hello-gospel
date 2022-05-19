@@ -1,7 +1,7 @@
 # Hello Gospel 
 
-Contributors:      randolphgamo 
-Tags:              jesus, gospel, evangile 
+Contributors:      randolphgamo  
+Tags:              jesus, gospel, evangile  
 Author URI:        https://caj.cm 
 Requires at least: 5.0 
 Tested up to:      5.9.3
