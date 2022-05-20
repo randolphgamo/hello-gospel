@@ -63,9 +63,14 @@ Not so easy way (via FTP):
 0.2 : Release date May 2022
 * Added Option to receive or not email notification during publish
 
+## Upgrade Notice
+
+Always upgrade to the latest version to have all the cool features.
 ## Frequently Asked Questions
 
 ### In which language is the Gospel offered?
 Currently, the gospel is only offered in French. We are
 working hard to release the gospel in English as well.
+
+
 
