@@ -6,7 +6,7 @@ Author URI:        https://caj.cm
 Requires at least: 5.0  
 Tested up to:      5.9.3  
 Requires PHP:      7.0  
-Stable tag:        0.2  
+Stable tag:        0.2.1    
 Version:           0.2  
 License: GPLv2 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html  
@@ -53,7 +53,7 @@ Not so easy way (via FTP):
 ## Screenshots
 
 1. Gospel is being pulled from aelf.org and gets listed
-2. You can put shortcode in any page of your choice
+2. You can put the shortcode **[gospel]** in any page of your choice
 
 ## Changelog
 
