@@ -59,6 +59,8 @@ Not so easy way (via FTP):
 
 0.1 : Release date April 2022
 * Initial version
+0.2 : Release date May 2022
+* Added Option to receive or not email notification during publish
 
 ## Frequently Asked Questions
 
