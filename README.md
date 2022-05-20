@@ -49,7 +49,6 @@ Not so easy way (via FTP):
 * Once activated you should see **Gospel** Menu in WP admin dashboard.
 * Use the shortcode **[gospel]** to display the Gospel in a page of your choice.
 
- ## Upgrade Notice
 
 ## Screenshots
 
@@ -58,8 +57,7 @@ Not so easy way (via FTP):
 
 ## Changelog
 
-= 0.1 =
-Release date April 2022
+0.1 : Release date April 2022
 * Initial version
 
 ## Frequently Asked Questions
