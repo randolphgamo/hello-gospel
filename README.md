@@ -4,10 +4,10 @@ Contributors:      randolphgamo
 Tags:              jesus, gospel, evangile  
 Author URI:        https://caj.cm  
 Requires at least: 5.0  
-Tested up to:      5.9.3  
-Requires PHP:      7.0  
-Stable tag:        0.2.1    
-Version:           0.2  
+Tested up to:      6.9  
+Requires PHP:      8.2  
+Stable tag:        0.4    
+Version:           0.4
 License: GPLv2 or later  
 License URI: https://www.gnu.org/licenses/gpl-2.0.html  
 
@@ -63,6 +63,9 @@ Not so easy way (via FTP):
 0.2 : Release date May 2022
 * Added Option to receive or not email notification during publish
 
+0.3: Release date December 2023
+* Fixed bugs and optimize plugin performance
+
 ## Upgrade Notice
 
 Always upgrade to the latest version to have all the cool features.
@@ -71,6 +74,5 @@ Always upgrade to the latest version to have all the cool features.
 ### In which language is the Gospel offered?
 Currently, the gospel is only offered in French. We are
 working hard to release the gospel in English as well.
-
 
 
