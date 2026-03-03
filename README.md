@@ -66,6 +66,9 @@ Not so easy way (via FTP):
 0.3: Release date December 2023
 * Fixed bugs and optimize plugin performance
 
+0.4: Release date March 2026
+* Fixed bugs and improved plugin security
+
 ## Upgrade Notice
 
 Always upgrade to the latest version to have all the cool features.
