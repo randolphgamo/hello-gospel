@@ -5,14 +5,18 @@ Plugin Name: Hello Gospel
 Plugin URI: http://wordpress.org/plugins/hello-gospel/
 Description: Populate your website with the Good News
 Author: Jesus Christ
-Version: 0.2.1
+Version: 0.4
 Author URI: https://caj.cm/
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 */
 
 
 
-
 /*  class name is Hello Gospel Jesus Plugin */
+
+if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
 
 class HgjPlugin {
 
@@ -55,10 +59,15 @@ class HgjPlugin {
     function ourSettings() {
       
 
-    //create a setting
-    register_setting('notificationFields',
-                     'gospel-option'  //option name in database
-                    );
+   register_setting(
+    'notificationFields',
+    'gospel-option',
+    array(
+        'type'              => 'string',
+        'sanitize_callback' => array( $this, 'sanitize_gospel_option' ),
+        'default'           => '0',
+    )
+);
 
 
     //create a section for our settings
@@ -138,6 +147,11 @@ class HgjPlugin {
       echo wp_kses($content, 'post');
 
     } //end function shortcodeGospel
+    
+    public function sanitize_gospel_option( $value ) {
+    $value = absint( $value );          // convert to 0/1/2...
+    return ( $value === 1 ) ? '1' : '0'; // force only '0' or '1'
+}
 
 
 
@@ -155,22 +169,29 @@ class HgjPlugin {
         $body    = json_decode($response['body'], true); // use the content
     
         
-       $introLue = $body["messes"][0]["lectures"][2]["intro_lue"];
-       $ref = $body["messes"][0]["lectures"][2]["ref"];
 
-       //to get title in the form Evangile de Jésus Christ selon Jean(jn 12, 15)
-       $title = $introLue . ' (' . $ref  .')';
+       
+       $allLectures = $body["messes"][0]["lectures"];
 
-        /******  create content composed up date, 
-         * refpassage, then content
-         */
+       $content ='';
+       $ref='';
+
+          
+          foreach($allLectures as $singleLecture) { 
+
+             if ($singleLecture["type"] == 'evangile') {
+
+              $content = '<strong>' . $this->hgj_date_french($dateEvangile, "l j F Y") . '</strong><br/><h3>' .$singleLecture["intro_lue"]. ' (' . $singleLecture["ref"] .')' . '</h3><br/>';
+
+              $content .= $singleLecture["contenu"];
+
+              //we will use this reference as primary key so that we only add one instance of the gospel
+              $ref = $singleLecture["ref"];
+
+            }
         
-        $content = '<strong>' . $this->hgj_date_french($dateEvangile, "l j F Y") . '</strong><br/><h3>' .$title . '</h3><br/>';
-         
+          }
 
-       $content .= $body["messes"][0]["lectures"][2]["contenu"];
-    
-    
         //to check if this gospel has not yet being added
             $existGospel = new WP_Query(array(
     
@@ -330,7 +351,6 @@ function hgj_date_french($date, $format)
 }
 
 $my_plugin = new HgjPlugin() ;
-
 
 
 
